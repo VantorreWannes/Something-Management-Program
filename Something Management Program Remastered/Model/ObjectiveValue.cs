@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Something_Management_Program_Remastered.Model
@@ -15,7 +16,6 @@ namespace Something_Management_Program_Remastered.Model
         private float amount;
         private List<Modifier> modifiers;
         private DateTime currentTime;
-
 
         public string Name
         {
@@ -105,5 +105,8 @@ namespace Something_Management_Program_Remastered.Model
             }
         }
         #endregion
+
+        [JsonConstructor]
+        public ObjectiveValue() { }
     }
 }

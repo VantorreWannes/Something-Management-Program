@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Something_Management_Program_Remastered.View"
         mc:Ignorable="d"
         Title="MainPage" Height="450" Width="800">
+    
     <Grid>
         
     </Grid>

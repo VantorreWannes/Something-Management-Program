@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Something_Management_Program_Remastered.Model
@@ -93,5 +94,8 @@ namespace Something_Management_Program_Remastered.Model
             }
         }
         #endregion
+
+        [JsonConstructor]
+        public Modifier() { }
     }
 }
