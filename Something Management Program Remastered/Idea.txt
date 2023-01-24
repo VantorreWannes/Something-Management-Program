@@ -1,1 +1,11 @@
-﻿
+﻿KEYWORDS:
+	Value = Amount of something
+	Display = Element containing this is used to showcase a field.
+	Edit = Element containing this is used to edit a field.
+	Select = Chooses one of multiple options. 
+	Show = Can either Display or modify the values shown.
+
+NAMES:
+	ObjectiveValue = Value we're trying to calculate.
+	Modifier = Modifier Object used to influence the ObjectiveValue
+
