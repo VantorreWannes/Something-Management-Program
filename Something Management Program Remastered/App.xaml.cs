@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Something_Management_Program_Remastered.View;
+using Something_Management_Program_Remastered.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,13 @@ namespace Something_Management_Program_Remastered
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e); 
+            MainPage window = new MainPage();
+            UserViewModel VM = new UserViewModel();
+            window.DataContext = VM;
+            window.Show();
+        }
     }
 }
