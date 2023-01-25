@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Something_Management_Program_Remastered.Model;
+using Something_Management_Program_Remastered.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,11 @@ namespace Something_Management_Program_Remastered.View
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        private void ObjectiveValueCollectionListView_Selected(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

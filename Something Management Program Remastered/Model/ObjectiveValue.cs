@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Something_Management_Program_Remastered.Model
 {
-    class ObjectiveValue
+    public class ObjectiveValue
     {
         private string name;
         private string type;

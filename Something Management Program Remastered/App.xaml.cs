@@ -1,4 +1,5 @@
-﻿using Something_Management_Program_Remastered.View;
+﻿using Something_Management_Program_Remastered.Model;
+using Something_Management_Program_Remastered.View;
 using Something_Management_Program_Remastered.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,10 @@ namespace Something_Management_Program_Remastered
         {
             base.OnStartup(e); 
             MainPage window = new MainPage();
-            UserViewModel VM = new UserViewModel();
+            ObjectiveValueViewModel VM = new ObjectiveValueViewModel();
             window.DataContext = VM;
             window.Show();
+            
         }
     }
 }

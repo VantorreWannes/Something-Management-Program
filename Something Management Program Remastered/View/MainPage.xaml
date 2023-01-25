@@ -6,8 +6,75 @@
         xmlns:local="clr-namespace:Something_Management_Program_Remastered.View"
         mc:Ignorable="d"
         Title="MainPage" Height="450" Width="800">
-    
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="ObjectiveValueCollectionListView" MaxHeight="125" BorderBrush="{x:Null}" Grid.Column="1" VerticalAlignment="Top" ItemsSource="{Binding ObjectiveValueCollection}" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"></GridViewColumn>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
+                    <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Grid Margin="5,5,5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel >
+                <Label Content="Name:" FontFamily="Cascadia Code SemiBold"/>
+                <Label Content="Description:" FontFamily="Cascadia Code SemiBold" VerticalContentAlignment="Center" Margin="0,15,0,15"/>
+                <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
+                <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
+                <Label Content="currentTime:" FontFamily="Cascadia Code SemiBold"/>
+                <Button Content="New Value" Margin="3,4,3,3" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" >
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" />
+                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2"/>
+                <Button Content="Delete" Margin="3,4,3,3" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
+            </StackPanel>
+
+
+        </Grid>
+
+
+
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,5,10,5" ScrollViewer.VerticalScrollBarVisibility="Auto" FlowDirection="RightToLeft" VerticalAlignment="Top" >
+                <Button Content="Modifier 1" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
+                <Button Content="Modifier 2" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
+                <Button Content="Modifier 3" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
+                <Button Content="Modifier 4" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
+                <Button Content="Add Modifier" Margin="3,3,3,3" MinWidth="80" MinHeight="20" FontSize="14" Background="#FF459CFF" BorderBrush="{x:Null}" />
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="1,1,0,0">
+            <Frame x:Name="ModifierDisplayFrame"/>
+        </Border>
+
+
     </Grid>
+
 </Window>
