@@ -18,7 +18,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="ObjectiveValueCollectionListView" MaxHeight="125" SelectionChanged="{Binding SelectionChangedCommand.Execute}" SelectedItem="{Binding ListViewSelectedItem}" BorderBrush="{x:Null}" Grid.Column="1" VerticalAlignment="Top" ItemsSource="{Binding ObjectiveValueCollection}" IsSynchronizedWithCurrentItem="True" >
+        <ListView x:Name="ObjectiveValueCollectionListView" MaxHeight="125" SelectedItem="{Binding ListViewSelectedItem}" SelectionChanged="ObjectiveValueCollectionListView_SelectionChanged" BorderBrush="{x:Null}" Grid.Column="1" VerticalAlignment="Top" ItemsSource="{Binding ObjectiveValueCollection}" IsSynchronizedWithCurrentItem="True" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>

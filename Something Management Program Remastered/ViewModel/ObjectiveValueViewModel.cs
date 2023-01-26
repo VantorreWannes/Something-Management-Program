@@ -1,20 +1,26 @@
 ﻿using Something_Management_Program_Remastered.Model;
+using CommunityToolkit.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.Common;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection.Metadata;
 using System.Text.Json;
-using System.Windows.Controls;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using System.Windows.Controls;
 
 namespace Something_Management_Program_Remastered.ViewModel
 {
     class ObjectiveValueViewModel
     {
-        public ICommand SelectionChangedCommand { get; set; } 
+
+        public ICommand SelectionChangedCommand { get; }
+
+        private void SetobjectiveValueSelectedItem()
+        {
+            ObjectiveValueSelectedItem = ObjectiveValueCollection[1];
+        }
+
         private List<ObjectiveValue> objectiveValueCollection;
         public List<ObjectiveValue> ObjectiveValueCollection
         {
@@ -104,8 +110,9 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             //PropertyChanged += ObjectiveValueViewModel_PropertyChanged;
             ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
-            ObjectiveValueSelectedItem = ObjectiveValueCollection[0];
-            SelectionChangedCommand = new CommandHandler((parameter) => ObjectiveValueSelectedItem = (ObjectiveValue)parameter, true);
+            SelectionChangedCommand = new RelayCommand(SetobjectiveValueSelectedItem);
+            
+
         }
         #region Json Functions
         private List<ObjectiveValue> ReadJsonObjectiveValueCollection()
@@ -122,6 +129,12 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
         #endregion
 
+
+        public void ObjectiveValueCollectionListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -134,30 +147,5 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         #endregion
 
-        #region ICommand Members 
-        public class CommandHandler : ICommand
-        {
-            private Action<object> action;
-            private bool canExecute;
-            public CommandHandler(Action<object> action, bool canExecute)
-            {
-                this.action = action;
-                this.canExecute = canExecute;
-            }
-
-            public bool CanExecute(object parameter)
-            {
-                return canExecute;
-            }
-
-            public event EventHandler CanExecuteChanged;
-
-            public void Execute(object parameter)
-            {
-                action(parameter);
-            }
-        }
-        
-        #endregion
     }
 }
