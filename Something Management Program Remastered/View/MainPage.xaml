@@ -18,7 +18,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="ObjectiveValueCollectionListView" MaxHeight="125" BorderBrush="{x:Null}" Grid.Column="1" VerticalAlignment="Top" ItemsSource="{Binding ObjectiveValueCollection}" >
+        <ListView x:Name="ObjectiveValueCollectionListView" MaxHeight="125" SelectionChanged="{Binding SelectionChangedCommand.Execute}" SelectedItem="{Binding ListViewSelectedItem}" BorderBrush="{x:Null}" Grid.Column="1" VerticalAlignment="Top" ItemsSource="{Binding ObjectiveValueCollection}" IsSynchronizedWithCurrentItem="True" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
@@ -46,11 +46,11 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" >
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" />
-                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemName}" x:Name="ObjectiveValueName"/>
+                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemDescription}" x:Name="ObjectiveValueDescription"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemAmount}" x:Name="ObjectiveValueAmount"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemType}" x:Name="ObjectiveValueType"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemcurrentTime}" x:Name="ObjectiveValuecurrentTime"/>
                 <Button Content="Delete" Margin="3,4,3,3" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
             </StackPanel>
 

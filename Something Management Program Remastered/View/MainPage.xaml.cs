@@ -26,9 +26,5 @@ namespace Something_Management_Program_Remastered.View
             InitializeComponent();
         }
 
-        private void ObjectiveValueCollectionListView_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
