@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Something_Management_Program_Remastered.View"
         mc:Ignorable="d"
         Title="MainPage" Height="450" Width="800">
 
@@ -18,16 +17,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="ObjectiveValueCollectionListView" MaxHeight="125" SelectedItem="{Binding ListViewSelectedItem}" SelectionChanged="ObjectiveValueCollectionListView_SelectionChanged" BorderBrush="{x:Null}" Grid.Column="1" VerticalAlignment="Top" ItemsSource="{Binding ObjectiveValueCollection}" IsSynchronizedWithCurrentItem="True" >
+        <ListView x:Name="ObjectiveValueCollectionListView" Grid.Column="1" MaxHeight="156" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" MinHeight="100" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"></GridViewColumn>
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
-                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
-                    <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}"></GridViewColumn>
-                </GridView>
-            </ListView.View>
+                 <GridView>
+                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
+                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
+                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
+                     <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
+                    <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}" ></GridViewColumn>
+                 </GridView>
+             </ListView.View>
         </ListView>
 
         <Grid Margin="5,5,5,5">
@@ -46,11 +45,11 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" >
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemName}" x:Name="ObjectiveValueName"/>
-                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemDescription}" x:Name="ObjectiveValueDescription"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemAmount}" x:Name="ObjectiveValueAmount"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemType}" x:Name="ObjectiveValueType"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding ObjectiveValueSelectedItemcurrentTime}" x:Name="ObjectiveValuecurrentTime"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueName"/>
+                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueDescription"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueAmount"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueType"/>
+                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime"/>
                 <Button Content="Delete" Margin="3,4,3,3" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
             </StackPanel>
 

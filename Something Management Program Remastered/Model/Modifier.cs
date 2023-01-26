@@ -5,95 +5,29 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Something_Management_Program_Remastered.Model
 {
     public enum Type { Add, Remove, Divide, Multiply}
 
-    public class Modifier
+    public partial class Modifier : ObservableObject, INotifyPropertyChanged
     {
+        [ObservableProperty]
         private string name;
+
+        [ObservableProperty]
         private Type modType;
+
+        [ObservableProperty]
         private string description;
+
+        [ObservableProperty]
         private float amount;
+
+        [ObservableProperty]
         private DateTime interval;
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-                OnPropertyChanged("Name");
-            }
-        }
-
-        public Type ModType
-        {
-            get
-            {
-                return modType;
-            }
-            set
-            {
-                modType = value;
-                OnPropertyChanged("ModType");
-            }
-        }
-        public string Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-                OnPropertyChanged("Description");
-            }
-        }
-
-        public float Amount
-        {
-            get
-            {
-                return amount;
-            }
-            set
-            {
-                amount = value;
-                OnPropertyChanged("Description");
-            }
-        }
-
-        public DateTime Interval
-        {
-            get
-            {
-                return interval;
-            }
-            set
-            {
-                interval = value;
-                OnPropertyChanged("Interval");
-            }
-        }
-
-
-        #region INotifyPropertyChanged Members  
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        #endregion
 
         [JsonConstructor]
         public Modifier() { }
