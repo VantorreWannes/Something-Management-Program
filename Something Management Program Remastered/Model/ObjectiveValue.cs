@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using CommunityToolkit.Mvvm;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace Something_Management_Program_Remastered.Model
 {
@@ -23,7 +24,7 @@ namespace Something_Management_Program_Remastered.Model
         private float amount;
 
         [ObservableProperty]
-        private List<Modifier> modifiers;
+        private ObservableCollection<Modifier> modifiers;
 
         [ObservableProperty]
         private DateTime currentTime;

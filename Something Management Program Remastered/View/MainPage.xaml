@@ -17,7 +17,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="ObjectiveValueCollectionListView" Grid.Column="1" MaxHeight="156" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" MinHeight="100" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+        <ListView x:Name="ObjectiveValueCollectionListView" Grid.Column="1" MaxHeight="156" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" MinHeight="100" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalAlignment="Top" >
             <ListView.View>
                  <GridView>
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
@@ -54,23 +54,17 @@
             </StackPanel>
         </Grid>
 
-
-
-
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,1,0,0">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10,5,10,5" ScrollViewer.VerticalScrollBarVisibility="Auto" FlowDirection="RightToLeft" VerticalAlignment="Top" >
-                <Button Content="Modifier 1" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
-                <Button Content="Modifier 2" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
-                <Button Content="Modifier 3" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
-                <Button Content="Modifier 4" Margin="3,3,3,3" MinWidth="80" MinHeight="20" Background="#FF6298E0" BorderBrush="{x:Null}" />
-                <Button Content="Add Modifier" Margin="3,3,3,3" MinWidth="80" MinHeight="20" FontSize="14" Background="#FF459CFF" BorderBrush="{x:Null}" />
-            </StackPanel>
-        </Border>
-
-        <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="1,1,0,0">
-            <Frame x:Name="ModifierDisplayFrame"/>
-        </Border>
-
+        <ListView x:Name="ModifierCollectionListView" Grid.Column="1" Grid.Row="1" MaxHeight="156" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" MinHeight="100" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalAlignment="Top" >
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
+                    <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}" ></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 

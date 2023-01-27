@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Something_Management_Program_Remastered.Model;
+using Something_Management_Program_Remastered.View;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using CommunityToolkit.Mvvm;
+using System.Reflection.Metadata;
 using System.Text.Json;
-using System.Xml.Linq;
-using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace Something_Management_Program_Remastered.ViewModel
 {
@@ -20,6 +20,9 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         [ObservableProperty]
         private ObjectiveValue selectedObjectiveValue;
+
+        [ObservableProperty]
+        private Modifier currentModifier;
 
         [RelayCommand]
         private void NewObjectviveValue()
@@ -39,7 +42,7 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         public ObjectiveValueViewModel()
         {
-            ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
+            ObjectiveValueCollection = ReadJsonObjectiveValueCollection();      
         }
 
         #region Json Functions
