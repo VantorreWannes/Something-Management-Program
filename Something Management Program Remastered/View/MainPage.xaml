@@ -20,10 +20,10 @@
         <ListView x:Name="ObjectiveValueCollectionListView" Grid.Column="1" MaxHeight="156" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" MinHeight="100" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
             <ListView.View>
                  <GridView>
-                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
-                     <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
-                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
-                     <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
+                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
                     <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}" ></GridViewColumn>
                  </GridView>
              </ListView.View>
@@ -41,7 +41,7 @@
                 <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
                 <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
                 <Label Content="currentTime:" FontFamily="Cascadia Code SemiBold"/>
-                <Button Content="New Value" Margin="3,4,3,3" Command="{Binding NewObjectviveValue}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
+                <Button Content="New Value" Margin="3,4,3,3" Command="{Binding NewObjectviveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
             </StackPanel>
 
             <StackPanel Grid.Column="1" >
@@ -50,7 +50,7 @@
                 <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueAmount"/>
                 <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueType"/>
                 <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime"/>
-                <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteObjectviveValue}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
+                <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteObjectviveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
             </StackPanel>
         </Grid>
 

@@ -22,8 +22,7 @@ namespace Something_Management_Program_Remastered
             MainPage window = new MainPage();
             ObjectiveValueViewModel VM = new ObjectiveValueViewModel();
             window.DataContext = VM;
-            window.Show();
-            
+            window.Show();            
         }
     }
 }
