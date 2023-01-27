@@ -41,7 +41,7 @@
                 <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
                 <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
                 <Label Content="currentTime:" FontFamily="Cascadia Code SemiBold"/>
-                <Button Content="New Value" Margin="3,4,3,3" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
+                <Button Content="New Value" Margin="3,4,3,3" Command="{Binding NewObjectviveValue}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
             </StackPanel>
 
             <StackPanel Grid.Column="1" >
@@ -50,10 +50,8 @@
                 <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueAmount"/>
                 <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueType"/>
                 <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime"/>
-                <Button Content="Delete" Margin="3,4,3,3" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
+                <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteObjectviveValue}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
             </StackPanel>
-
-
         </Grid>
 
 

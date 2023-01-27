@@ -10,7 +10,7 @@ namespace Something_Management_Program_Remastered.Model
     public partial class ObjectiveValue : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
-        private string? name;
+        private string name;
 
         [ObservableProperty]
         private string type;
@@ -29,6 +29,8 @@ namespace Something_Management_Program_Remastered.Model
 
         [JsonConstructor]
         public ObjectiveValue() { }
+
+        
 
     }
 }

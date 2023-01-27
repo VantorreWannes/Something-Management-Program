@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Something_Management_Program_Remastered.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 
@@ -15,6 +17,20 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         [ObservableProperty]
         private ObjectiveValue selectedObjectiveValue;
+
+        [RelayCommand]
+        private void NewObjectviveValue()
+        {
+            ObjectiveValueCollection.Add(new ObjectiveValue { Name = "Empty", Amount = 0, CurrentTime = default});
+            Debug.WriteLine("added");
+        }
+
+        [RelayCommand]
+        private void DeleteObjectviveValue()
+        {
+            ObjectiveValueCollection.RemoveAll(x => x == SelectedObjectiveValue);
+            Debug.WriteLine("removed");
+        }
 
         public ObjectiveValueViewModel()
         {
