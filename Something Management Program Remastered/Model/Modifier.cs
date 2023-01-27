@@ -10,15 +10,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Something_Management_Program_Remastered.Model
 {
-    public enum Type { Add, Remove, Divide, Multiply}
-
-    public partial class Modifier : ObservableObject, INotifyPropertyChanged
+   public partial class Modifier : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
         private string name;
 
         [ObservableProperty]
-        private Type modType;
+        private string modType;
 
         [ObservableProperty]
         private string description;

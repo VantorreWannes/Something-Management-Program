@@ -1,15 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Something_Management_Program_Remastered.Model;
-using Something_Management_Program_Remastered.View;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection.Metadata;
+using System.Linq;
 using System.Text.Json;
-using System.Windows.Controls;
 
 namespace Something_Management_Program_Remastered.ViewModel
 {
@@ -22,27 +20,49 @@ namespace Something_Management_Program_Remastered.ViewModel
         private ObjectiveValue selectedObjectiveValue;
 
         [ObservableProperty]
-        private Modifier currentModifier;
+        private Modifier selectedModifier;
 
         [RelayCommand]
-        private void NewObjectviveValue()
+        private void NewObjectiveValue()
         {
-            ObjectiveValueCollection.Add(new ObjectiveValue { Name = "Empty", Amount = 0, CurrentTime = DateTime.Now });
+            ObjectiveValueCollection.Add(item: new ObjectiveValue { Name = "Empty ObjectiveValue", Amount = 0, CurrentTime = DateTime.Now });
             WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
-            Debug.WriteLine("added");
         }
 
         [RelayCommand]
-        private void DeleteObjectviveValue()
+        private void DeleteObjectiveValue()
         {
-            ObjectiveValueCollection.Remove(SelectedObjectiveValue);
-            WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
-            Debug.WriteLine("removed");
+            if (SelectedObjectiveValue is not null && ObjectiveValueCollection.Count > 0)
+            {
+                ObjectiveValueCollection.Remove(SelectedObjectiveValue);
+                WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+            }
+
+        }
+
+        [RelayCommand]
+        private void NewModifier()
+        {
+            if (SelectedObjectiveValue is not null)
+            {
+                SelectedObjectiveValue.Modifiers.Add(item: new Modifier { Name = "Empty Modifier", Amount = 0, Interval = DateTime.Now });
+                WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+            }
+        }
+
+        [RelayCommand]
+        private void DeleteModifier()
+        {
+            if (SelectedObjectiveValue is not null && SelectedObjectiveValue.Modifiers.Count >= 1)
+            {
+                SelectedObjectiveValue.Modifiers.Remove(SelectedModifier);
+                WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+            }
         }
 
         public ObjectiveValueViewModel()
         {
-            ObjectiveValueCollection = ReadJsonObjectiveValueCollection();      
+            ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
         }
 
         #region Json Functions

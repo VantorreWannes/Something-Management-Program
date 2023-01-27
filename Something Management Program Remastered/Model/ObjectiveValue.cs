@@ -24,7 +24,7 @@ namespace Something_Management_Program_Remastered.Model
         private float amount;
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> modifiers;
+        private ObservableCollection<Modifier> modifiers = new ObservableCollection<Modifier>() { new Modifier { Name = "Empty Modifier", Amount = 0, Interval = DateTime.Now } };
 
         [ObservableProperty]
         private DateTime currentTime;
