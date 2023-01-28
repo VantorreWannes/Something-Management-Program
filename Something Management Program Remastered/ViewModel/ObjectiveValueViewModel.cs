@@ -20,6 +20,9 @@ namespace Something_Management_Program_Remastered.ViewModel
         private ObjectiveValue selectedObjectiveValue;
 
         [ObservableProperty]
+        private ObservableCollection<Modifier> modifierCollection;
+
+        [ObservableProperty]
         private Modifier selectedModifier;
 
         [RelayCommand]
