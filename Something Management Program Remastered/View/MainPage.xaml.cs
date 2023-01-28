@@ -24,6 +24,7 @@ namespace Something_Management_Program_Remastered.View
         public MainPage()
         {
             InitializeComponent();
+            
         }
 
     }

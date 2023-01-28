@@ -7,88 +7,107 @@
         Title="MainPage" Height="450" Width="800">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="ObjectiveValueCollectionListView" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalAlignment="Bottom" Grid.Column="1" Height="175" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
-                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
-                    <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}" ></GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <Grid Margin="5,5,5,5">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel >
-                <Label Content="Name:" FontFamily="Cascadia Code SemiBold"/>
-                <Label Content="Description:" FontFamily="Cascadia Code SemiBold" VerticalContentAlignment="Center" Margin="0,15,0,15"/>
-                <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
-                <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
-                <Label Content="currentTime:" FontFamily="Cascadia Code SemiBold"/>
-                <Button Content="New Value" Margin="3,4,3,3" Command="{Binding NewObjectiveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" >
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueName"/>
-                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueDescription"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueAmount"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueType"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime"/>
-                <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteObjectiveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
-            </StackPanel>
+            <Label Grid.Column="0" Content="{Binding SelectedObjectiveValue.CurrentTime}" MinWidth="125" HorizontalAlignment="Right" Margin="2,2,2,2"  MinHeight="20" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            <Button Grid.Column="1" Command="{Binding SkipTimeCommand}" Content="- Calculate -" HorizontalAlignment="Center"  Margin="2,2,2,2" FontSize="14" FontWeight="Bold" MinHeight="29"/>
+            <TextBox Text="{Binding SelectedObjectiveValue.SetTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" HorizontalAlignment="Left" MinWidth="125" Margin="5,2,2,2" FontSize="12" MinHeight="20" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Grid>
-
-        <ListView x:Name="ModifierCollectionListView" Grid.Column="1" Grid.Row="1" SelectedItem="{Binding SelectedModifier}" ItemsSource="{Binding SelectedObjectiveValue.Modifiers}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
-                    <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
-                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
-                    <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}" ></GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <Grid Grid.Row="1" Margin="5,5,5,5">
+        
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel >
-                <Label Content="Name:" FontFamily="Cascadia Code SemiBold"/>
-                <Label Content="Description:" FontFamily="Cascadia Code SemiBold" VerticalContentAlignment="Center" Margin="0,15,0,15"/>
-                <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
-                <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
-                <Label Content="currentTime:" FontFamily="Cascadia Code SemiBold"/>
-                <Button Content="New Value" Margin="3,4,3,3" Command="{Binding NewModifierCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
-            </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel Grid.Column="1" >
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierName"/>
-                <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedModifier.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierDescription"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierAmount"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.ModType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierType"/>
-                <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierCurrentTime"/>
-                <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteModifierCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
-            </StackPanel>
+            <ListView x:Name="ObjectiveValueCollectionListView" SelectedItem="{Binding SelectedObjectiveValue}" ItemsSource="{Binding ObjectiveValueCollection}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalAlignment="Top" Height="175" Grid.Column="1" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
+                        <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
+                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}" ></GridViewColumn>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
+                        <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding CurrentTime}" ></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel >
+                    <Label Content="Name:" FontFamily="Cascadia Code SemiBold"/>
+                    <Label Content="Description:" FontFamily="Cascadia Code SemiBold" VerticalContentAlignment="Center" Margin="0,15,0,15"/>
+                    <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
+                    <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
+                    <Label Content="currentTime:" FontFamily="Cascadia Code SemiBold"/>
+                    <Button Content="New Value" Margin="3,4,3,3" Command="{Binding NewObjectiveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" >
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueName"/>
+                    <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueDescription"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueAmount"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueType"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime"/>
+                    <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteObjectiveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
+                </StackPanel>
+            </Grid>
+
+            <ListView x:Name="ModifierCollectionListView" Grid.Column="1" Grid.Row="1" SelectedItem="{Binding SelectedModifier}" ItemsSource="{Binding SelectedObjectiveValue.Modifiers}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>
+                        <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Amount}" ></GridViewColumn>
+                        <GridViewColumn Header="Type" DisplayMemberBinding="{Binding ModType}" ></GridViewColumn>
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" ></GridViewColumn>
+                        <GridViewColumn Header="Current Set Time" DisplayMemberBinding="{Binding Interval}" ></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid Grid.Row="1" Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel >
+                    <Label Content="Name:" FontFamily="Cascadia Code SemiBold"/>
+                    <Label Content="Description:" FontFamily="Cascadia Code SemiBold" VerticalContentAlignment="Center" Margin="0,15,0,15"/>
+                    <Label Content="Amount:" FontFamily="Cascadia Code SemiBold"/>
+                    <Label Content="Type:" FontFamily="Cascadia Code SemiBold"/>
+                    <Label Content="Interval:" FontFamily="Cascadia Code SemiBold"/>
+                    <Button Content="New Modifier" Margin="3,4,3,3" Command="{Binding NewModifierCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FF6BED85" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" >
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierName"/>
+                    <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedModifier.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierDescription"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierAmount"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.ModType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierType"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierInterval"/>
+                    <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteModifierCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

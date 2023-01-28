@@ -12,27 +12,29 @@ namespace Something_Management_Program_Remastered.Model
     public partial class ObjectiveValue : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
-        private string name;
+        private string name = "Empty ObjectiveValue";
 
         [ObservableProperty]
-        private string type;
+        private string type = "?";
 
         [ObservableProperty]
         private string description;
 
         [ObservableProperty]
-        private float amount;
+        private float amount = 0;
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> modifiers = new ObservableCollection<Modifier>() { new Modifier { Name = "Empty Modifier", Amount = 0, Interval = DateTime.Now } };
+        private ObservableCollection<Modifier> modifiers = new ObservableCollection<Modifier>() { new Modifier() };
 
         [ObservableProperty]
-        private DateTime currentTime;
+        private DateTime currentTime = DateTime.Now;
+
+        [ObservableProperty]
+        private DateTime setTime = new DateTime();
 
         [JsonConstructor]
         public ObjectiveValue() { }
-
-        
+              
 
     }
 }

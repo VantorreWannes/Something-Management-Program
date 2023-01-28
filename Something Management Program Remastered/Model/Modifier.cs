@@ -10,22 +10,30 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Something_Management_Program_Remastered.Model
 {
+    public enum modTypeEnum
+    {
+        Add,
+        Remove,
+        Multiply,
+        Divide,
+    }
+
    public partial class Modifier : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
-        private string name;
+        private string name = "Empty Modifier";
 
         [ObservableProperty]
-        private string modType;
+        private modTypeEnum modType = 0;
 
         [ObservableProperty]
         private string description;
 
         [ObservableProperty]
-        private float amount;
+        private float amount = 0;
 
         [ObservableProperty]
-        private DateTime interval;
+        private TimeSpan interval = TimeSpan.Zero;
 
         [JsonConstructor]
         public Modifier() { }
