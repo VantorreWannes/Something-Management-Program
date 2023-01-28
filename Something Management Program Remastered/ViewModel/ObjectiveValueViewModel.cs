@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
+using System.Windows.Threading;
 
 namespace Something_Management_Program_Remastered.ViewModel
 {
@@ -62,36 +63,44 @@ namespace Something_Management_Program_Remastered.ViewModel
         [RelayCommand]
         private void SkipTime()
         {
+            SelectedObjectiveValue.CurrentTime = DateTime.Now;
             WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
             if (SelectedObjectiveValue is not null)
             {
                 foreach (Modifier mod in SelectedObjectiveValue.Modifiers)
                 {
-                    if (mod.Interval == TimeSpan.Zero){ return; }
+                    if (mod.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { continue; }
                     double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod.Interval.Ticks;
                     int amount_rounded = (int)Math.Round(amount);
-                    Debug.WriteLine(amount_rounded);
-                    if (amount_rounded == 0 ) { return; }
+                    if (amount_rounded == 0) { continue; }
                     switch (mod.ModType)
-                        {
-                            case modTypeEnum.Add:
-                                SelectedObjectiveValue.Amount += (mod.Amount * amount_rounded);
-                                break;
-                            case modTypeEnum.Remove:
+                    {
+                        case modTypeEnum.Add:
+                            SelectedObjectiveValue.Amount += (mod.Amount * amount_rounded);
+                            break;
+                        case modTypeEnum.Remove:
                             SelectedObjectiveValue.Amount -= (mod.Amount * amount_rounded);
-                                break;
-                            case modTypeEnum.Multiply:
-                                SelectedObjectiveValue.Amount *= (mod.Amount * amount_rounded);
-                                break;
-                            case modTypeEnum.Divide:
-                                SelectedObjectiveValue.Amount = (int)Math.Round(SelectedObjectiveValue.Amount / (mod.Amount * amount_rounded));
-                                break;
-                            default:
-                                Debug.WriteLine("ERROR");
-                                break;
-                        }
-                    return;
+                            break;
+                        case modTypeEnum.Multiply:
+                            SelectedObjectiveValue.Amount *= (mod.Amount * amount_rounded);
+                            break;
+                        case modTypeEnum.Divide:
+                            SelectedObjectiveValue.Amount = (int)Math.Round(SelectedObjectiveValue.Amount / (mod.Amount * amount_rounded));
+                            break;
+                        default:
+                            Debug.WriteLine("ERROR");
+                            break;
+                    }
                 }
+            }
+        }
+
+        public void Timer_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < ObjectiveValueCollection.Count; i++)
+            {
+                ObjectiveValue val = ObjectiveValueCollection[i];
+                val.CurrentTime = DateTime.Now;
             }
         }
 
@@ -100,6 +109,10 @@ namespace Something_Management_Program_Remastered.ViewModel
         public ObjectiveValueViewModel()
         {
             ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMinutes(1);
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
         }
 
         #region Json Functions

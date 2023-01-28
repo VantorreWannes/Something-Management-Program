@@ -64,10 +64,10 @@
 
                 <StackPanel Grid.Column="1" >
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueName"/>
-                    <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueDescription"/>
+                    <TextBox MinWidth="125"  MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueDescription" AcceptsReturn="True" TextWrapping="Wrap"/>
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueAmount"/>
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueType"/>
-                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime"/>
+                    <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedObjectiveValue.CurrentTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ObjectiveValueCurrentTime" IsReadOnly="True"/>
                     <Button Content="Delete" Margin="3,4,3,3" Command="{Binding DeleteObjectiveValueCommand}" FontFamily="Bahnschrift SemiCondensed" FontSize="16" MinWidth="80" BorderBrush="{x:Null}" Background="#FFFB4D4D" />
                 </StackPanel>
             </Grid>
@@ -101,7 +101,7 @@
 
                 <StackPanel Grid.Column="1" >
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierName"/>
-                    <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedModifier.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierDescription"/>
+                    <TextBox MinWidth="125" MinHeight="50" Margin="0,2,0,2" Text="{Binding SelectedModifier.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierDescription" AcceptsReturn="True" TextWrapping="Wrap"/>
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierAmount"/>
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.ModType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierType"/>
                     <TextBox MinWidth="125" MinHeight="20" Margin="0,2,0,2" Text="{Binding SelectedModifier.Interval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="ModifierInterval"/>
