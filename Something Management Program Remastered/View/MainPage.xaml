@@ -73,11 +73,21 @@
                 </StackPanel>
             </Grid>
 
-            <StackPanel Grid.Row="1" Grid.Column="1">
-                    <Label Grid.Column="0" Content="{Binding SelectedObjectiveValue.CurrentTime}" MinWidth="125" HorizontalAlignment="Right" Margin="2,2,2,2"  MinHeight="20" VerticalAlignment="Center" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
-                    <Button Grid.Column="1" Command="{Binding SkipTimeCommand}" Content="- Calculate -" HorizontalAlignment="Center"  Margin="2,2,2,2" FontSize="14" FontWeight="Bold" MinHeight="10" BorderBrush="{x:Null}"/>
-                    <TextBox Text="{Binding SelectedObjectiveValue.SetTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" HorizontalAlignment="Left" MinWidth="125" Margin="5,2,2,2" FontSize="12" MinHeight="20" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                    <Button Content="Coca cola" VerticalAlignment="Center" Margin="1,1,1,1" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
+                    <Label Content=">=>" FontFamily="Cascadia Code" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14"/>
+                    <Button Content="Sugar" VerticalAlignment="Center" Margin="1,1,1,1" BorderBrush="{x:Null}" Background="#FFB7BBC3" Foreground="Black"/>
+                    <Label Content=">=>" FontFamily="Cascadia Code" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14"/>
+                </StackPanel>
+                <Button Grid.Row="1" Grid.Column="1" Content="Select Modifier" HorizontalAlignment="Left" Margin="1,1,1,1" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
+
+            </Grid>
 
             <ListView x:Name="ModifierCollectionListView" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding SelectedModifier}" ItemsSource="{Binding SelectedObjectiveValue.Modifiers}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
                 <ListView.View>
