@@ -20,7 +20,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         private ObjectiveValue selectedObjectiveValue;
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> modifierCollection;
+        private ObservableCollection<Modifier> selectedModifierCollection = new ObservableCollection<Modifier>();
 
         [ObservableProperty]
         private Modifier selectedModifier;
@@ -108,6 +108,15 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
 
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+
+        [RelayCommand]
+        private void ViewModifiers()
+        {
+            if (SelectedModifier is not null) 
+            {
+                SelectedModifierCollection.Add(SelectedModifier);
+            }
+        }
 
         public ObjectiveValueViewModel()
         {
