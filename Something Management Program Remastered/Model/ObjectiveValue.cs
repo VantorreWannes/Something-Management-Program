@@ -30,7 +30,7 @@ namespace Something_Management_Program_Remastered.Model
         private DateTime currentTime = DateTime.Now;
 
         [ObservableProperty]
-        private DateTime setTime = new DateTime();
+        private DateTime setTime = DateTime.Now;
 
         [JsonConstructor]
         public ObjectiveValue() { }

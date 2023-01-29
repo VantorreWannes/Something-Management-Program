@@ -6,8 +6,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Something_Management_Program_Remastered.ViewModel
@@ -21,10 +21,10 @@ namespace Something_Management_Program_Remastered.ViewModel
         private ObjectiveValue selectedObjectiveValue;
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> selectedModifierCollection = new ObservableCollection<Modifier>();
+        private Modifier selectedModifier;
 
         [ObservableProperty]
-        private Modifier selectedModifier;
+        private ObservableCollection<Modifier> selectedModifierTimeLine = new ObservableCollection<Modifier>();
 
         [RelayCommand]
         private void NewObjectiveValue()
@@ -49,14 +49,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null)
             {
-                if (SelectedModifierCollection.Count > 0) 
-                {
-                    SelectedModifier.Modifiers.Add(item: new Modifier());
-                }
-                else 
-                {
-                    SelectedObjectiveValue.Modifiers.Add(item: new Modifier());
-                }
+                SelectedObjectiveValue.Modifiers.Add(item: new Modifier());
                 WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
             }
         }
@@ -66,14 +59,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null && SelectedObjectiveValue.Modifiers.Count >= 1)
             {
-                if (SelectedModifierCollection.Count > 0)
-                {
-                    SelectedModifier.Modifiers.Remove(item: SelectedModifier);
-                }
-                else
-                {
-                    SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
-                }
+                SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
                 WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
             }
         }
@@ -125,18 +111,24 @@ namespace Something_Management_Program_Remastered.ViewModel
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
 
         [RelayCommand]
-        private void ViewModifiers()
+        private void AddModifierTimeStamp()
         {
-            if (SelectedModifier is not null) 
+            if (SelectedModifier is not null)
             {
-                SelectedModifierCollection.Add(SelectedModifier);
+                SelectedModifierTimeLine.Add(SelectedModifier);
+                SelectedObjectiveValue.Modifiers = SelectedModifier.Modifiers;
             }
+        }
+
+        [RelayCommand]
+        private void SelectModifierTimeStamp(Modifier Button)
+        {
+            Debug.WriteLine(Button.Name);
         }
 
         public ObjectiveValueViewModel()
         {
             ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
-            SelectedModifier = SelectedModifierCollection.Last();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMinutes(1);
             timer.Tick += new EventHandler(Timer_Tick);
