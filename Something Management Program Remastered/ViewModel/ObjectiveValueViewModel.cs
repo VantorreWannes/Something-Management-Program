@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Windows.Threading;
 
@@ -48,7 +49,14 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null)
             {
-                SelectedObjectiveValue.Modifiers.Add(item: new Modifier());
+                if (SelectedModifierCollection.Count > 0) 
+                {
+                    SelectedModifier.Modifiers.Add(item: new Modifier());
+                }
+                else 
+                {
+                    SelectedObjectiveValue.Modifiers.Add(item: new Modifier());
+                }
                 WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
             }
         }
@@ -58,7 +66,14 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null && SelectedObjectiveValue.Modifiers.Count >= 1)
             {
-                SelectedObjectiveValue.Modifiers.Remove(SelectedModifier);
+                if (SelectedModifierCollection.Count > 0)
+                {
+                    SelectedModifier.Modifiers.Remove(item: SelectedModifier);
+                }
+                else
+                {
+                    SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
+                }
                 WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
             }
         }
@@ -121,6 +136,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         public ObjectiveValueViewModel()
         {
             ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
+            SelectedModifier = SelectedModifierCollection.Last();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMinutes(1);
             timer.Tick += new EventHandler(Timer_Tick);

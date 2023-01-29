@@ -75,6 +75,11 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
                 <ItemsControl ItemsSource="{Binding SelectedModifierCollection}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

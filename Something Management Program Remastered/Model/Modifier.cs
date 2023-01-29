@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,9 @@ namespace Something_Management_Program_Remastered.Model
 
         [ObservableProperty]
         private TimeSpan interval = TimeSpan.Zero;
+
+        [ObservableProperty]
+        private ObservableCollection<Modifier> modifiers = new ObservableCollection<Modifier>();
 
         [JsonConstructor]
         public Modifier() { }
