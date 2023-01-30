@@ -10,13 +10,13 @@ namespace Something_Management_Program_Remastered.Model
     {
 
         [ObservableProperty]
-        private ObservableCollection<ObjectiveValue> objectiveValueCollection;
+        private ObservableCollection<ObjectiveValue> objectiveValueCollection = new();
 
         [ObservableProperty]
         private ObservableCollection<Modifier> modifierTree = new();
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> displayModifiers;
+        private ObservableCollection<Modifier> displayModifiers = new();
 
         [JsonConstructor]
         public Project()

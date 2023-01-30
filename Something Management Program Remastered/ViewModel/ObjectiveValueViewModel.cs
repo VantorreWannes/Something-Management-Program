@@ -23,6 +23,8 @@ namespace Something_Management_Program_Remastered.ViewModel
         [ObservableProperty]
         private Modifier selectedModifier;
 
+        partial void OnSelectedObjectiveValueChanged(ObjectiveValue value) => ProjectInfo.DisplayModifiers = value.Modifiers;
+
         /*
         partial void OnSelectedModifierChanged(Modifier value) 
         {
@@ -34,8 +36,9 @@ namespace Something_Management_Program_Remastered.ViewModel
         [RelayCommand]
         private void NewObjectiveValue()
         {
-            ProjectInfo.ObjectiveValueCollection.Add(item: new ObjectiveValue());
-            WriteProjectInfo(ProjectInfo);
+
+                ProjectInfo.ObjectiveValueCollection.Add(item: new ObjectiveValue());
+                WriteProjectInfo(ProjectInfo);
         }
 
         [RelayCommand]
@@ -62,7 +65,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         [RelayCommand]
         private void DeleteModifier()
         {
-            if (SelectedObjectiveValue is not null && SelectedObjectiveValue.Modifiers.Count >= 1)
+            if (SelectedObjectiveValue is not null && ProjectInfo.DisplayModifiers.Count >= 1)
             {
                 SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
                 WriteProjectInfo(ProjectInfo);
@@ -117,6 +120,8 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteProjectInfo(ProjectInfo);
 
+        /*
+
         [RelayCommand]
         private void AddModifierTreeItem()
         {
@@ -140,7 +145,7 @@ namespace Something_Management_Program_Remastered.ViewModel
             SelectedModifierTree = new ObservableCollection<Modifier>();
         }
 
-
+        */
 
         public ObjectiveValueViewModel()
         {
@@ -154,7 +159,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         #region Json Functions
         private Project ReadProjectInfo()
         {
-            string text = File.ReadAllText(@"ObjectiveValueCollection.json");
+            string text = File.ReadAllText(@"Project.json");
             return JsonSerializer.Deserialize<Project>(text);
         }
 
