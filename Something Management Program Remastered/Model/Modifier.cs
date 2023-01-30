@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Something_Management_Program_Remastered.Model
 {
@@ -19,7 +14,7 @@ namespace Something_Management_Program_Remastered.Model
         Divide,
     }
 
-   public partial class Modifier : ObservableObject, INotifyPropertyChanged
+    public partial class Modifier : ObservableObject, INotifyPropertyChanged
     {
         [ObservableProperty]
         private string name = "Empty Modifier";

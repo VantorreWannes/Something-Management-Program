@@ -4,7 +4,6 @@ using Something_Management_Program_Remastered.Model;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -24,11 +23,19 @@ namespace Something_Management_Program_Remastered.ViewModel
         [ObservableProperty]
         private Modifier selectedModifier;
 
+        /*
+        partial void OnSelectedModifierChanged(Modifier value) 
+        {
+            ProjectInfo.DisplayedModifiers.Clear();
+            ProjectInfo.DisplayedModifiers.Add(value);
+        }
+        */
+
         [RelayCommand]
         private void NewObjectiveValue()
         {
             ProjectInfo.ObjectiveValueCollection.Add(item: new ObjectiveValue());
-            WriteJsonObjectiveValueCollection(ProjectInfo);
+            WriteProjectInfo(ProjectInfo);
         }
 
         [RelayCommand]
@@ -37,7 +44,7 @@ namespace Something_Management_Program_Remastered.ViewModel
             if (SelectedObjectiveValue is not null && ProjectInfo.ObjectiveValueCollection.Count > 0)
             {
                 ProjectInfo.ObjectiveValueCollection.Remove(SelectedObjectiveValue);
-                WriteJsonObjectiveValueCollection(ProjectInfo);
+                WriteProjectInfo(ProjectInfo);
             }
 
         }
@@ -47,8 +54,8 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null)
             {
-                SelectedObjectiveValue.Modifiers.Add(item: new Modifier());
-                WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+                ProjectInfo.DisplayModifiers.Add(item: new Modifier());
+                WriteProjectInfo(ProjectInfo);
             }
         }
 
@@ -57,11 +64,12 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null && SelectedObjectiveValue.Modifiers.Count >= 1)
             {
-                SelectedObjectiveValue.Modifiers.Remove(item: SelectedObjectiveValue.SelectedModifier);
-                WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+                SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
+                WriteProjectInfo(ProjectInfo);
             }
         }
 
+        /*
         [RelayCommand]
         private void SkipTime()
         {
@@ -96,17 +104,18 @@ namespace Something_Management_Program_Remastered.ViewModel
                 }
             }
         }
+        */
 
         public void Timer_Tick(object sender, EventArgs e)
         {
-            for (int i = 0; i < ObjectiveValueCollection.Count; i++)
+            foreach (ObjectiveValue item in ProjectInfo.ObjectiveValueCollection)
             {
-                ObjectiveValue val = ObjectiveValueCollection[i];
-                val.CurrentTime = DateTime.Now;
+                item.CurrentTime = DateTime.Now;
             }
+
         }
 
-        public void OnWindowClosing(object sender, CancelEventArgs e) => WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+        public void OnWindowClosing(object sender, CancelEventArgs e) => WriteProjectInfo(ProjectInfo);
 
         [RelayCommand]
         private void AddModifierTreeItem()
@@ -127,7 +136,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
         private void ResetModifierTree()
         {
-            
+
             SelectedModifierTree = new ObservableCollection<Modifier>();
         }
 
@@ -135,7 +144,7 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         public ObjectiveValueViewModel()
         {
-            ProjectInfo.ObjectiveValueCollection = ReadProjectInfo();
+            ProjectInfo = ReadProjectInfo();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMinutes(1);
             timer.Tick += new EventHandler(Timer_Tick);
