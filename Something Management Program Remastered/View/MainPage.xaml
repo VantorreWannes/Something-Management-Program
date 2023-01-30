@@ -76,7 +76,7 @@
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
                 <Button Command="{Binding AddModifierTreeItemCommand}" Grid.Column="1" Content="Select Modifier" HorizontalAlignment="Left" Margin="1,1,1,1" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
                 <Label Content=">=>" FontFamily="Cascadia Code" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14"/>
-                <Button Grid.Row="1" Command="{Binding SelectModifierTreeCommand}" CommandParameter="{Binding SelectedObjectiveValue}" Grid.Column="1" Content="{Binding SelectedObjectiveValue.Name}" HorizontalAlignment="Left" Margin="1,1,1,1" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
+                <Button Grid.Row="1" Command="{Binding SelectModifierTreeCommand}" Grid.Column="1" Content="{Binding SelectedObjectiveValue.Name}" HorizontalAlignment="Left" Margin="1,1,1,1" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
                 <ItemsControl Name="ModifierTree" ItemsSource="{Binding SelectedModifierTree}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

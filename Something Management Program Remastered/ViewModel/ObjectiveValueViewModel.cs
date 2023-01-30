@@ -20,12 +20,6 @@ namespace Something_Management_Program_Remastered.ViewModel
         [ObservableProperty]
         private ObjectiveValue selectedObjectiveValue;
 
-        [ObservableProperty]
-        private Modifier selectedModifier;
-
-        [ObservableProperty]
-        private ObservableCollection<Modifier> selectedModifierTree = new ObservableCollection<Modifier>();
-
         [RelayCommand]
         private void NewObjectiveValue()
         {
@@ -115,7 +109,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedModifier is not null)
             {
-                SelectedModifierTimeLine.Add(SelectedModifier);
+                SelectedModifierTree.Add(SelectedModifier);
                 SelectedObjectiveValue.Modifiers = SelectedModifier.Modifiers;
             }
         }
@@ -123,14 +117,14 @@ namespace Something_Management_Program_Remastered.ViewModel
         [RelayCommand]
         private void SelectModifierTree(Modifier mod)
         {
-            int index = SelectedModifierTimeLine.IndexOf(mod);
+            int index = SelectedModifierTree.IndexOf(mod);
             SelectedObjectiveValue.Modifiers = mod.Modifiers;
-            SelectedModifierTimeLine = new ObservableCollection<Modifier>(SelectedModifierTimeLine.TakeWhile(x => SelectedModifierTimeLine.IndexOf(x) <= index));
+            SelectedModifierTree = new ObservableCollection<Modifier>(SelectedModifierTree.TakeWhile(x => SelectedModifierTree.IndexOf(x) <= index));
         }
         private void ResetModifierTree()
         {
-            SelectedObjectiveValue.Modifiers = 
-            SelectedModifierTimeLine = new ObservableCollection<Modifier>();
+            
+            SelectedModifierTree = new ObservableCollection<Modifier>();
         }
 
 

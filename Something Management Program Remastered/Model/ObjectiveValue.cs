@@ -1,11 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using CommunityToolkit.Mvvm;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace Something_Management_Program_Remastered.Model
 {
@@ -24,7 +21,15 @@ namespace Something_Management_Program_Remastered.Model
         private float amount = 0;
 
         [ObservableProperty]
+        private ObservableCollection<Modifier> modifierTree = new ObservableCollection<Modifier>();
+
+        [ObservableProperty]
+        private ObservableCollection<Modifier> selectedModifier;
+
+        /*
+        [ObservableProperty]
         private ObservableCollection<Modifier> modifiers = new ObservableCollection<Modifier>() { new Modifier() };
+        */
 
         [ObservableProperty]
         private DateTime currentTime = DateTime.Now;
@@ -34,7 +39,8 @@ namespace Something_Management_Program_Remastered.Model
 
         [JsonConstructor]
         public ObjectiveValue() { }
-              
+
+
 
     }
 }
