@@ -75,6 +75,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" >
                 <Button Command="{Binding AddModifierTreeItemCommand}" Grid.Column="1" Content="Select Modifier" HorizontalAlignment="Left" Margin="1,1,1,1" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
+                <Button Command="{Binding ResetModifierTreeItemCommand}" Grid.Column="1" Content="{Binding SelectedObjectiveValue.Name}" HorizontalAlignment="Left" Margin="1,1,1,1" VerticalAlignment="Center" Grid.IsSharedSizeScope="True" Background="#FFB7BBC3" BorderBrush="{x:Null}"/>
                 <ItemsControl Name="ModifierTree" ItemsSource="{Binding SelectedModifierTree}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -92,7 +93,7 @@
                 </ItemsControl>
             </StackPanel>
 
-            <ListView x:Name="ModifierCollectionListView" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding SelectedModifier}" ItemsSource="{Binding SelectedObjectiveValue.Modifiers}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+            <ListView x:Name="ModifierCollectionListView" Grid.Column="1" Grid.Row="2" SelectedItem="{Binding SelectedModifier}" ItemsSource="{Binding SelectedObjectiveValue.DisplayModifiers}" BorderBrush="{x:Null}" IsSynchronizedWithCurrentItem="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" ></GridViewColumn>

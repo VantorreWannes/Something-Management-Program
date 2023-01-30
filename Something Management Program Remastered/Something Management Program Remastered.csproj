@@ -10,15 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MultiValueConvert\**" />
+    <EmbeddedResource Remove="MultiValueConvert\**" />
+    <None Remove="MultiValueConvert\**" />
+    <Page Remove="MultiValueConvert\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MultiValueConvert\" />
   </ItemGroup>
 
 </Project>

@@ -14,14 +14,12 @@ namespace Something_Management_Program_Remastered.ViewModel
 {
     public partial class ObjectiveValueViewModel : ObservableObject, INotifyPropertyChanged
     {
+
         [ObservableProperty]
-        private ObservableCollection<ObjectiveValue> objectiveValueCollection;
+        private Project projectInfo;
 
         [ObservableProperty]
         private ObjectiveValue selectedObjectiveValue;
-
-        [ObservableProperty]
-        private ObservableCollection<Modifier> modifierTree = new ObservableCollection<Modifier>();
 
         [ObservableProperty]
         private Modifier selectedModifier;
@@ -29,17 +27,17 @@ namespace Something_Management_Program_Remastered.ViewModel
         [RelayCommand]
         private void NewObjectiveValue()
         {
-            ObjectiveValueCollection.Add(item: new ObjectiveValue());
-            WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+            ProjectInfo.ObjectiveValueCollection.Add(item: new ObjectiveValue());
+            WriteJsonObjectiveValueCollection(ProjectInfo);
         }
 
         [RelayCommand]
         private void DeleteObjectiveValue()
         {
-            if (SelectedObjectiveValue is not null && ObjectiveValueCollection.Count > 0)
+            if (SelectedObjectiveValue is not null && ProjectInfo.ObjectiveValueCollection.Count > 0)
             {
-                ObjectiveValueCollection.Remove(SelectedObjectiveValue);
-                WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
+                ProjectInfo.ObjectiveValueCollection.Remove(SelectedObjectiveValue);
+                WriteJsonObjectiveValueCollection(ProjectInfo);
             }
 
         }
@@ -137,7 +135,7 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         public ObjectiveValueViewModel()
         {
-            ObjectiveValueCollection = ReadJsonObjectiveValueCollection();
+            ProjectInfo.ObjectiveValueCollection = ReadProjectInfo();
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMinutes(1);
             timer.Tick += new EventHandler(Timer_Tick);
@@ -145,17 +143,17 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
 
         #region Json Functions
-        private ObservableCollection<ObjectiveValue> ReadJsonObjectiveValueCollection()
+        private Project ReadProjectInfo()
         {
             string text = File.ReadAllText(@"ObjectiveValueCollection.json");
-            return JsonSerializer.Deserialize<ObservableCollection<ObjectiveValue>>(text);
+            return JsonSerializer.Deserialize<Project>(text);
         }
 
-        public void WriteJsonObjectiveValueCollection(ObservableCollection<ObjectiveValue> obj)
+        public void WriteProjectInfo(Project obj)
         {
             JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
-            string jsonObjString = JsonSerializer.Serialize<ObservableCollection<ObjectiveValue>>(obj, options);
-            File.WriteAllText(@"ObjectiveValueCollection.json", jsonObjString);
+            string jsonObjString = JsonSerializer.Serialize<Project>(obj, options);
+            File.WriteAllText(@"Project.json", jsonObjString);
         }
         #endregion
 
