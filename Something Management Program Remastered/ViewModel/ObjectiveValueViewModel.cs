@@ -6,8 +6,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace Something_Management_Program_Remastered.ViewModel
@@ -121,9 +121,21 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
 
         [RelayCommand]
-        private void SelectModifierTimeStamp(Modifier Button)
+        private void SelectModifierTimeStamp(object mod)
         {
-            Debug.WriteLine(Button.Name);
+            if (mod is Modifier)
+            {
+                Modifier modifier = (Modifier)mod;
+                int index = SelectedModifierTimeLine.IndexOf(modifier);
+                SelectedObjectiveValue.Modifiers = modifier.Modifiers;
+                SelectedModifierTimeLine = new ObservableCollection<Modifier>(SelectedModifierTimeLine.TakeWhile(x => SelectedModifierTimeLine.IndexOf(x) <= index));
+            }
+            else if (mod is ObjectiveValue)
+            {
+                ObjectiveValue objectiveValue = (ObjectiveValue)mod;
+                SelectedObjectiveValue.Modifiers = objectiveValue.Modifiers;
+                SelectedModifierTimeLine = new ObservableCollection<Modifier>(); 
+            }
         }
 
         public ObjectiveValueViewModel()
