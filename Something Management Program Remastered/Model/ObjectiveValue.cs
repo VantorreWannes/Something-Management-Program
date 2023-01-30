@@ -24,12 +24,10 @@ namespace Something_Management_Program_Remastered.Model
         private ObservableCollection<Modifier> modifierTree = new ObservableCollection<Modifier>();
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> selectedModifier;
+        private Modifier DisplayModifier;
 
-        /*
         [ObservableProperty]
         private ObservableCollection<Modifier> modifiers = new ObservableCollection<Modifier>() { new Modifier() };
-        */
 
         [ObservableProperty]
         private DateTime currentTime = DateTime.Now;

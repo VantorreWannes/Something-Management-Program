@@ -20,6 +20,12 @@ namespace Something_Management_Program_Remastered.ViewModel
         [ObservableProperty]
         private ObjectiveValue selectedObjectiveValue;
 
+        [ObservableProperty]
+        private ObservableCollection<Modifier> modifierTree = new ObservableCollection<Modifier>();
+
+        [ObservableProperty]
+        private Modifier selectedModifier;
+
         [RelayCommand]
         private void NewObjectiveValue()
         {
@@ -53,7 +59,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null && SelectedObjectiveValue.Modifiers.Count >= 1)
             {
-                SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
+                SelectedObjectiveValue.Modifiers.Remove(item: SelectedObjectiveValue.SelectedModifier);
                 WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
             }
         }
