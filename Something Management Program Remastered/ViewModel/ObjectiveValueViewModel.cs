@@ -24,7 +24,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         private Modifier selectedModifier;
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> selectedModifierTimeLine = new ObservableCollection<Modifier>();
+        private ObservableCollection<Modifier> selectedModifierTree = new ObservableCollection<Modifier>();
 
         [RelayCommand]
         private void NewObjectiveValue()
@@ -111,7 +111,7 @@ namespace Something_Management_Program_Remastered.ViewModel
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
 
         [RelayCommand]
-        private void AddModifierTimeStamp()
+        private void AddModifierTreeItem()
         {
             if (SelectedModifier is not null)
             {
@@ -121,22 +121,19 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
 
         [RelayCommand]
-        private void SelectModifierTimeStamp(object mod)
+        private void SelectModifierTree(Modifier mod)
         {
-            if (mod is Modifier)
-            {
-                Modifier modifier = (Modifier)mod;
-                int index = SelectedModifierTimeLine.IndexOf(modifier);
-                SelectedObjectiveValue.Modifiers = modifier.Modifiers;
-                SelectedModifierTimeLine = new ObservableCollection<Modifier>(SelectedModifierTimeLine.TakeWhile(x => SelectedModifierTimeLine.IndexOf(x) <= index));
-            }
-            else if (mod is ObjectiveValue)
-            {
-                ObjectiveValue objectiveValue = (ObjectiveValue)mod;
-                SelectedObjectiveValue.Modifiers = objectiveValue.Modifiers;
-                SelectedModifierTimeLine = new ObservableCollection<Modifier>(); 
-            }
+            int index = SelectedModifierTimeLine.IndexOf(mod);
+            SelectedObjectiveValue.Modifiers = mod.Modifiers;
+            SelectedModifierTimeLine = new ObservableCollection<Modifier>(SelectedModifierTimeLine.TakeWhile(x => SelectedModifierTimeLine.IndexOf(x) <= index));
         }
+        private void ResetModifierTree()
+        {
+            SelectedObjectiveValue.Modifiers = 
+            SelectedModifierTimeLine = new ObservableCollection<Modifier>();
+        }
+
+
 
         public ObjectiveValueViewModel()
         {
