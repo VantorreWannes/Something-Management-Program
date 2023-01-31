@@ -26,7 +26,7 @@ namespace Something_Management_Program_Remastered.Model
         private string description;
 
         [ObservableProperty]
-        private float amount = 0;
+        private int amount = 0;
 
         [ObservableProperty]
         private TimeSpan interval = TimeSpan.Zero;

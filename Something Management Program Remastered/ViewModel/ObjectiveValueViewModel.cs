@@ -76,42 +76,67 @@ namespace Something_Management_Program_Remastered.ViewModel
             }
         }
 
-        /*
+
         [RelayCommand]
         private void SkipTime()
         {
             SelectedObjectiveValue.CurrentTime = DateTime.Now;
-            WriteJsonObjectiveValueCollection(ObjectiveValueCollection);
-            if (SelectedObjectiveValue is not null)
+            WriteProjectInfo(ProjectInfo);
+            foreach (Modifier mod in SelectedObjectiveValue.Modifiers)
             {
-                foreach (Modifier mod in SelectedObjectiveValue.Modifiers)
+                if (mod.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { continue; }
+                mod.Amount = ProccessModifiers(mod);
+                double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod.Interval.Ticks;
+                int amount_rounded = (int)Math.Round(amount);
+                if (amount_rounded == 0) { continue; }
+                switch (mod.ModType)
                 {
-                    if (mod.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { continue; }
-                    double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod.Interval.Ticks;
-                    int amount_rounded = (int)Math.Round(amount);
-                    if (amount_rounded == 0) { continue; }
-                    switch (mod.ModType)
-                    {
-                        case modTypeEnum.Add:
-                            SelectedObjectiveValue.Amount += (mod.Amount * amount_rounded);
-                            break;
-                        case modTypeEnum.Remove:
-                            SelectedObjectiveValue.Amount -= (mod.Amount * amount_rounded);
-                            break;
-                        case modTypeEnum.Multiply:
-                            SelectedObjectiveValue.Amount *= (mod.Amount * amount_rounded);
-                            break;
-                        case modTypeEnum.Divide:
-                            SelectedObjectiveValue.Amount = (int)Math.Round(SelectedObjectiveValue.Amount / (mod.Amount * amount_rounded));
-                            break;
-                        default:
-                            Debug.WriteLine("ERROR");
-                            break;
-                    }
+                    case modTypeEnum.Add:
+                        SelectedObjectiveValue.Amount += (mod.Amount * amount_rounded);
+                        break;
+                    case modTypeEnum.Remove:
+                        SelectedObjectiveValue.Amount -= (mod.Amount * amount_rounded);
+                        break;
+                    case modTypeEnum.Multiply:
+                        SelectedObjectiveValue.Amount *= (mod.Amount * amount_rounded);
+                        break;
+                    case modTypeEnum.Divide:
+                        SelectedObjectiveValue.Amount = (int)Math.Round(SelectedObjectiveValue.Amount / (mod.Amount * amount_rounded));
+                        break;
+                    default:
+                        Debug.WriteLine("ERROR");
+                        break;
                 }
             }
         }
-        */
+        private int ProccessModifiers(Modifier mod)
+        {
+            foreach (Modifier mod2 in mod.Modifiers) { mod2.Amount = ProccessModifiers(mod2); }
+
+            if (mod.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { return mod.Amount; }
+            double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod.Interval.Ticks;
+            int amount_rounded = (int)Math.Round(amount);
+            if (amount_rounded == 0) { return mod.Amount; }
+            switch (mod.ModType)
+            {
+                case modTypeEnum.Add:
+                    SelectedObjectiveValue.Amount += (mod.Amount * amount_rounded);
+                    break;
+                case modTypeEnum.Remove:
+                    SelectedObjectiveValue.Amount -= (mod.Amount * amount_rounded);
+                    break;
+                case modTypeEnum.Multiply:
+                    SelectedObjectiveValue.Amount *= (mod.Amount * amount_rounded);
+                    break;
+                case modTypeEnum.Divide:
+                    SelectedObjectiveValue.Amount = (int)Math.Round(SelectedObjectiveValue.Amount / (mod.Amount * amount_rounded));
+                    break;
+                default:
+                    Debug.WriteLine("ERROR");
+                    break;
+
+            }
+        }
 
         public void Timer_Tick(object sender, EventArgs e)
         {
@@ -135,6 +160,8 @@ namespace Something_Management_Program_Remastered.ViewModel
             }
         }
 
+
+
         [RelayCommand]
         private void SelectModifierTree(object mod)
         {
@@ -143,7 +170,7 @@ namespace Something_Management_Program_Remastered.ViewModel
             Debug.WriteLine(ProjectInfo.ModifierTree.Last());
             if (ProjectInfo.ModifierTree.Count == 1) { ProjectInfo.DisplayModifiers = (ProjectInfo.ModifierTree.Last() as ObjectiveValue).Modifiers ?? new(); }
             else { ProjectInfo.DisplayModifiers = (ProjectInfo.ModifierTree.Last() as Modifier).Modifiers ?? new(); }
-            
+
         }
 
         public ObjectiveValueViewModel()
