@@ -2,7 +2,9 @@
 using CommunityToolkit.Mvvm.Input;
 using Something_Management_Program_Remastered.Model;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -121,32 +123,28 @@ namespace Something_Management_Program_Remastered.ViewModel
 
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteProjectInfo(ProjectInfo);
 
-        /*
+
 
         [RelayCommand]
         private void AddModifierTreeItem()
         {
             if (SelectedModifier is not null)
             {
-                SelectedModifierTree.Add(SelectedModifier);
-                SelectedObjectiveValue.Modifiers = SelectedModifier.Modifiers;
+                ProjectInfo.ModifierTree.Add(SelectedModifier);
+                ProjectInfo.DisplayModifiers = (ProjectInfo.ModifierTree[^1] as Modifier).Modifiers;
             }
         }
 
         [RelayCommand]
-        private void SelectModifierTree(Modifier mod)
+        private void SelectModifierTree(object mod)
         {
-            int index = SelectedModifierTree.IndexOf(mod);
-            SelectedObjectiveValue.Modifiers = mod.Modifiers;
-            SelectedModifierTree = new ObservableCollection<Modifier>(SelectedModifierTree.TakeWhile(x => SelectedModifierTree.IndexOf(x) <= index));
+            int index = ProjectInfo.ModifierTree.IndexOf(mod);
+            ProjectInfo.ModifierTree = new ObservableCollection<object>(ProjectInfo.ModifierTree.TakeWhile(x => ProjectInfo.ModifierTree.IndexOf(x) <= index));
+            Debug.WriteLine(ProjectInfo.ModifierTree.Last());
+            if (ProjectInfo.ModifierTree.Count == 1) { ProjectInfo.DisplayModifiers = (ProjectInfo.ModifierTree.Last() as ObjectiveValue).Modifiers ?? new(); }
+            else { ProjectInfo.DisplayModifiers = (ProjectInfo.ModifierTree.Last() as Modifier).Modifiers ?? new(); }
+            
         }
-        private void ResetModifierTree()
-        {
-
-            SelectedModifierTree = new ObservableCollection<Modifier>();
-        }
-
-        */
 
         public ObjectiveValueViewModel()
         {
