@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Something_Management_Program_Remastered.Model;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -23,22 +22,23 @@ namespace Something_Management_Program_Remastered.ViewModel
         [ObservableProperty]
         private Modifier selectedModifier;
 
-        partial void OnSelectedObjectiveValueChanged(ObjectiveValue value) => ProjectInfo.DisplayModifiers = value.Modifiers;
 
-        /*
-        partial void OnSelectedModifierChanged(Modifier value) 
+        partial void OnSelectedObjectiveValueChanged(ObjectiveValue value)
         {
-            ProjectInfo.DisplayedModifiers.Clear();
-            ProjectInfo.DisplayedModifiers.Add(value);
+            ProjectInfo.ModifierTree.Clear();
+            if (value is not null)
+            {
+                ProjectInfo.ModifierTree.Add(value);
+                ProjectInfo.DisplayModifiers = (ProjectInfo.ModifierTree[0] as ObjectiveValue).Modifiers;
+            }
+            WriteProjectInfo(ProjectInfo);
         }
-        */
 
         [RelayCommand]
         private void NewObjectiveValue()
         {
-
-                ProjectInfo.ObjectiveValueCollection.Add(item: new ObjectiveValue());
-                WriteProjectInfo(ProjectInfo);
+            ProjectInfo.ObjectiveValueCollection.Add(item: new ObjectiveValue());
+            WriteProjectInfo(ProjectInfo);
         }
 
         [RelayCommand]
@@ -57,7 +57,8 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null)
             {
-                ProjectInfo.DisplayModifiers.Add(item: new Modifier());
+                if (ProjectInfo.ModifierTree.Count == 1) { (ProjectInfo.ModifierTree[0] as ObjectiveValue).Modifiers.Add(new Modifier()); }
+                else { (ProjectInfo.ModifierTree[^1] as Modifier).Modifiers.Add(new Modifier()); }
                 WriteProjectInfo(ProjectInfo);
             }
         }
@@ -67,7 +68,8 @@ namespace Something_Management_Program_Remastered.ViewModel
         {
             if (SelectedObjectiveValue is not null && ProjectInfo.DisplayModifiers.Count >= 1)
             {
-                SelectedObjectiveValue.Modifiers.Remove(item: SelectedModifier);
+                if (ProjectInfo.ModifierTree.Count == 1) { (ProjectInfo.ModifierTree[0] as ObjectiveValue).Modifiers.Remove(SelectedModifier); }
+                else { (ProjectInfo.ModifierTree[^1] as Modifier).Modifiers.Remove(SelectedModifier); }
                 WriteProjectInfo(ProjectInfo);
             }
         }
@@ -115,7 +117,6 @@ namespace Something_Management_Program_Remastered.ViewModel
             {
                 item.CurrentTime = DateTime.Now;
             }
-
         }
 
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteProjectInfo(ProjectInfo);

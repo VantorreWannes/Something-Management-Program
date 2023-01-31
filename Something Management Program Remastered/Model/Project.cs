@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Something_Management_Program_Remastered.Model
@@ -13,7 +12,7 @@ namespace Something_Management_Program_Remastered.Model
         private ObservableCollection<ObjectiveValue> objectiveValueCollection = new();
 
         [ObservableProperty]
-        private ObservableCollection<Modifier> modifierTree = new();
+        private ObservableCollection<object> modifierTree = new();
 
         [ObservableProperty]
         private ObservableCollection<Modifier> displayModifiers = new();
@@ -21,7 +20,7 @@ namespace Something_Management_Program_Remastered.Model
         [JsonConstructor]
         public Project()
         {
-            DisplayModifiers = ModifierTree.LastOrDefault(new Modifier()).Modifiers;
+
         }
     }
 }
