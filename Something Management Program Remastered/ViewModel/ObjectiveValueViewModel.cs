@@ -85,7 +85,7 @@ namespace Something_Management_Program_Remastered.ViewModel
             foreach (Modifier mod in SelectedObjectiveValue.Modifiers)
             {
                 if (mod.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { continue; }
-                mod.Amount = ProccessModifiers(mod);
+                foreach (Modifier mod2 in mod.Modifiers) { mod.Amount = ProccessModifiers(mod, mod2); }
                 double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod.Interval.Ticks;
                 int amount_rounded = (int)Math.Round(amount);
                 if (amount_rounded == 0) { continue; }
@@ -109,33 +109,32 @@ namespace Something_Management_Program_Remastered.ViewModel
                 }
             }
         }
-        private int ProccessModifiers(Modifier mod)
+        private int ProccessModifiers(Modifier mod, Modifier mod2)
         {
-            foreach (Modifier mod2 in mod.Modifiers) { mod2.Amount = ProccessModifiers(mod2); }
-
-            if (mod.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { return mod.Amount; }
-            double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod.Interval.Ticks;
+            foreach (Modifier mod3 in mod2.Modifiers) { mod2.Amount = ProccessModifiers(mod2, mod3); }
+            if (mod2.Interval == TimeSpan.Zero || SelectedObjectiveValue.SetTime < SelectedObjectiveValue.CurrentTime) { return mod.Amount; }
+            double amount = (SelectedObjectiveValue.SetTime - SelectedObjectiveValue.CurrentTime).Ticks / (double)mod2.Interval.Ticks;
             int amount_rounded = (int)Math.Round(amount);
             if (amount_rounded == 0) { return mod.Amount; }
-            switch (mod.ModType)
+            switch (mod2.ModType)
             {
                 case modTypeEnum.Add:
-                    SelectedObjectiveValue.Amount += (mod.Amount * amount_rounded);
+                    mod.Amount += (mod2.Amount * amount_rounded);
                     break;
                 case modTypeEnum.Remove:
-                    SelectedObjectiveValue.Amount -= (mod.Amount * amount_rounded);
+                    mod.Amount -= (mod2.Amount * amount_rounded);
                     break;
                 case modTypeEnum.Multiply:
-                    SelectedObjectiveValue.Amount *= (mod.Amount * amount_rounded);
+                    mod.Amount *= (mod2.Amount * amount_rounded);
                     break;
                 case modTypeEnum.Divide:
-                    SelectedObjectiveValue.Amount = (int)Math.Round(SelectedObjectiveValue.Amount / (mod.Amount * amount_rounded));
+                    mod.Amount = (int)Math.Round(mod.Amount / (double)(mod2.Amount * amount_rounded));
                     break;
                 default:
                     Debug.WriteLine("ERROR");
                     break;
-
             }
+            return mod.Amount;
         }
 
         public void Timer_Tick(object sender, EventArgs e)
@@ -147,8 +146,6 @@ namespace Something_Management_Program_Remastered.ViewModel
         }
 
         public void OnWindowClosing(object sender, CancelEventArgs e) => WriteProjectInfo(ProjectInfo);
-
-
 
         [RelayCommand]
         private void AddModifierTreeItem()
